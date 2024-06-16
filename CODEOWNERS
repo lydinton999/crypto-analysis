@@ -1,1 +1,67 @@
 *   @lydinton999 
+-- Time series plot
+  -- Transaction Volume Over Time: Visualize the total volume of whale transactions over a specific time period to identify its trends. --
+  SELECT 
+    time AS date, 
+    value AS total_volume
+FROM whale
+WHERE value >= 1000
+GROUP BY time, value
+ORDER BY time;
+-- Visualization:
+-- A line or area chart showing total volume over time to identify spikes or trends in whale activity.
+
+-- Histogram
+-- Distribution of Transaction Sizes: Show the distribution of transaction amounts to identify typical whale transaction sizes.
+  
+ SELECT 
+    value
+FROM whale
+WHERE value >= 1000;
+
+-- Visualization:
+-- A histogram of transaction amounts to visualize the frequency of different transaction sizes.
+
+-- Bubble Chart
+-- Transaction Size and Volume: Visualize the relationship between transaction size and the total volume of transactions.
+SELECT 
+    Time  AS date, 
+    Value, 
+    tx_id
+FROM whale
+WHERE Value >= 1000;
+select * from whale;
+
+-- Visualization:
+-- A bubble chart with date on the x-axis, transaction size on the y-axis, and bubble size representing volume.
+
+-- Bar Chart
+-- Top Whale Addresses: Identify and visualize the most active whale addresses by transaction volume.
+SELECT 
+    address, 
+    SUM(value) AS total_volume
+FROM whale
+WHERE value >= 1000
+GROUP BY address
+ORDER BY total_volume DESC
+LIMIT 10;
+
+-- Cumulative Whale Transactions: Show the cumulative volume of whale transactions over time
+SELECT 
+    DATE(time) AS date, 
+    SUM(value) OVER (ORDER BY DATE(time)) AS cumulative_volume
+FROM whale
+WHERE value >= 1000;
+-- Visualization: An area chart showing the cumulative volume of whale transactions over time.
+
+ -- Scatter Plot
+-- Price Reaction to Whale Transactions: Analyze the relationship between whale transaction volumes and BTC price data.
+SELECT 
+    DATE(time) AS date, 
+    SUM(value) AS whale_volume,
+    Price 
+FROM whale
+JOIN bitcoin_price_data ON DATE(time) = Date
+WHERE value >= 1000
+GROUP BY time, price;
+-- Visualization: A scatter plot with whale volume on the x-axis and price change on the y-axis to explore correlation.
