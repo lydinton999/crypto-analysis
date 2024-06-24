@@ -1,0 +1,192 @@
+--   @lydinton999 
+-- Time series plot
+  -- Transaction Volume Over Time: Visualize the total volume of whale transactions over a specific time period to identify its trends. --
+  SELECT 
+    time AS date, 
+    value AS total_volume
+FROM whale
+WHERE value >= 1000
+GROUP BY time, value
+ORDER BY time;
+-- Visualization:
+-- A line or area chart showing total volume over time to identify spikes or trends in whale activity.
+
+-- Histogram
+-- Distribution of Transaction Sizes: Show the distribution of transaction amounts to identify typical whale transaction sizes.
+  
+ SELECT 
+    value
+FROM whale
+WHERE value >= 1000;
+
+-- Visualization:
+-- A histogram of transaction amounts to visualize the frequency of different transaction sizes.
+
+-- Bubble Chart
+-- Transaction Size and Volume: Visualize the relationship between transaction size and the total volume of transactions.
+SELECT 
+    Time  AS date, 
+    Value, 
+    tx_id
+FROM whale
+WHERE Value >= 1000;
+select * from whale;
+
+-- Visualization:
+-- A bubble chart with date on the x-axis, transaction size on the y-axis, and bubble size representing volume.
+
+-- Bar Chart
+-- Top Whale Addresses: Identify and visualize the most active whale addresses by transaction volume.
+SELECT 
+    address, 
+    SUM(value) AS total_volume
+FROM whale
+WHERE value >= 1000
+GROUP BY address
+ORDER BY total_volume DESC
+LIMIT 10;
+
+-- Cumulative Whale Transactions: Show the cumulative volume of whale transactions over time
+SELECT 
+    DATE(time) AS date, 
+    SUM(value) OVER (ORDER BY DATE(time)) AS cumulative_volume
+FROM whale
+WHERE value >= 1000;
+-- Visualization: An area chart showing the cumulative volume of whale transactions over time.
+
+ -- Scatter Plot
+-- Price Reaction to Whale Transactions: Analyze the relationship between whale transaction volumes and BTC price data.
+SELECT 
+    DATE(time) AS date, 
+    SUM(value) AS whale_volume,
+    Price 
+FROM whale
+JOIN bitcoin_price_data ON DATE(time) = Date
+WHERE value >= 1000
+GROUP BY time, price;
+-- Visualization: A scatter plot with whale volume on the x-axis and price change on the y-axis to explore correlation.
+
+-- Bitcoin price data analysis
+Use crypto_data;
+select * from bitcoin_price_data;
+-- Analyze the seasonal patterns in BTC prices (e.g., monthly or weekly seasonality) 
+-- Monthly Seasonality
+SELECT 
+    EXTRACT(MONTH FROM date) AS month,
+    AVG(price)
+FROM bitcoin_price_data
+GROUP BY EXTRACT(MONTH FROM date)
+ORDER BY month;
+
+-- Weekly Seasonality 
+SELECT 
+    EXTRACT(day FROM date) AS day_of_week,
+    AVG(price) AS avg_price
+FROM bitcoin_price_data
+GROUP BY EXTRACT(Day FROM date)
+ORDER BY day_of_week;
+-- Visualizations: Heatmap: Show average prices by month or day of the week --
+
+-- Calculate daily, weekly, or monthly trends in BTC prices to understand how the price changes over time.
+-- Daily Price Trend
+SELECT 
+    date,
+    price
+FROM bitcoin_price_data
+ORDER BY date;
+-- Visualizations: Line Chart: Plot daily average prices to visualize trends over time.
+
+-- Moving Averages
+-- Calculate moving averages to smooth out price data and identify trends over different periods.
+-- 7-day Moving Average
+SELECT 
+    date,
+    price,
+    AVG(price) OVER (ORDER BY date ROWS BETWEEN 6 PRECEDING AND CURRENT ROW) AS moving_avg_7
+FROM bitcoin_price_data;
+
+-- 30-day Moving Average
+SELECT 
+    date,
+    price,
+    AVG(price) OVER (ORDER BY date ROWS BETWEEN 29 PRECEDING AND CURRENT ROW) AS moving_avg_30
+FROM bitcoin_price_data;
+-- Visualizations: Line Chart: Plot actual prices along with 7-day and 30-day moving averages.
+select * from bitcoin_price_data;
+
+-- Volume Analysis: Analyze the volume of BTC traded over different periods to understand trading activity.
+-- Daily Trading Volume
+SELECT 
+    date,
+   Total_fees_USD
+FROM bitcoin_price_data
+ORDER BY date;
+
+-- Weekly Trading Volume
+SELECT 
+    DATE AS week,
+    SUM(Total_fees_USD) AS weekly_volume
+FROM bitcoin_price_data
+GROUP BY date
+ORDER BY week;
+-- Visualizations: Bar Chart: Plot daily or weekly trading volumes.
+
+-- Price Forecasting: Use time series forecasting techniques to predict future BTC prices.
+WITH linear_regression AS (
+    SELECT 
+        date,
+        price,
+        ROW_NUMBER() OVER (ORDER BY date) AS t
+    FROM bitcoin_price_data
+),
+regression_model AS (
+    SELECT 
+        AVG(t * price) AS xy,
+        AVG(t) * AVG(price) AS x_avg_y_avg,
+        AVG(t * t) AS x_squared,
+        AVG(t) * AVG(t) AS x_avg_squared,
+        (AVG(t * price) - AVG(t) * AVG(price)) / (AVG(t * t) - AVG(t) * AVG(t)) AS slope,
+        AVG(price) - (AVG(t * price) - AVG(t) * AVG(price)) / (AVG(t * t) - AVG(t) * AVG(t)) * AVG(t) AS intercept
+    FROM linear_regression
+)
+SELECT 
+    date,
+    price,
+    intercept + slope * ROW_NUMBER() OVER (ORDER BY date) AS forecasted_price
+FROM bitcoin_price_data, regression_model;
+-- Visualizations: Line Chart: Plot actual vs. forecasted prices.
+
+-- Relative Strength Index (RSI): Calculate the RSI to identify overbought or oversold conditions.
+WITH price_changes AS (
+    SELECT 
+        date,
+        price - LAG(price) OVER (ORDER BY date) AS price_change
+    FROM bitcoin_price_data
+),
+gains_losses AS (
+    SELECT 
+        date,
+        CASE 
+            WHEN price_change > 0 THEN price_change 
+            ELSE 0 
+        END AS gain,
+        CASE 
+            WHEN price_change < 0 THEN -price_change 
+            ELSE 0 
+        END AS loss
+    FROM price_changes
+),
+avg_gains_losses AS (
+    SELECT 
+        date,
+        AVG(gain) OVER (ORDER BY date ROWS BETWEEN 13 PRECEDING AND CURRENT ROW) AS avg_gain,
+        AVG(loss) OVER (ORDER BY date ROWS BETWEEN 13 PRECEDING AND CURRENT ROW) AS avg_loss
+    FROM gains_losses
+)
+SELECT 
+    date,
+    100 - (100 / (1 + avg_gain / avg_loss)) AS rsi
+FROM avg_gains_losses;
+-- Visualizations: Line Chart: Plot the RSI to identify overbought and oversold levels.
+-- When the RSI is above 70, it indicates that the asset may be overbought, and when it's below 30, it indicates that the asset may be oversold
+

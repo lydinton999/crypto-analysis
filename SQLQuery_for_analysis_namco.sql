@@ -50,4 +50,3 @@ SELECT TOP (1000) [Date]
   -- Since we aligned the date in step *), the 'Time' column should be chenged to 'Date' in order to show relationship between the tables.
   EXEC sp_rename 'BtcData.dbo.WhaleTxData.Time',  'Date', 'COLUMN';
  
- 
