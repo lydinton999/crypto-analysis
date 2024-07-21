@@ -75,6 +75,10 @@ SET Type = REPLACE(Type,'-1','Sent')
 
 UPDATE [dbo].[Whale_transactions]
 SET Type = REPLACE(Type,'1','Received')
+```
+
+```sql
+
 
   
 
