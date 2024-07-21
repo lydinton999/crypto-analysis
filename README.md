@@ -23,7 +23,7 @@ This data analysis project aims to provide insights into the bitcoin open and cl
     
     4. Replace -1 with Sent and 1 with received in the whale_transactions
     
-    5. Change type from float to string
+    5. Change datatype from float to string
     
     6. Data cleaning and formatting
 ### Exploratory Data Analysis
@@ -43,7 +43,38 @@ EDA Involved exploring the price_data and whale_transaction to answer key questi
 
 ### Data Analysis
 ```sql
+SELECT * 
+FROM Price_data
 
+--1) Align Date Format
+ALTER TABLE Price_data
+Alter column Date DATE
+
+Select *
+From Price_data
+
+Select *
+From INFORMATION_SCHEMA.COLUMNS
+Where TABLE_NAME = 'Price_data'
+
+--2) For Table Whale_Transactions
+ALTER TABLE Whale_transactions
+Alter column Date DATE
+
+Select *
+From INFORMATION_SCHEMA.COLUMNS
+Where TABLE_NAME = 'Whale_transactions'
+
+--3) Replace -1 with Sent and 1 with received in the Whale_transactions
+--FIrstly we have to change the datatype of Type from Float to String
+ALTER TABLE Whale_transactions
+Alter column Type NVARCHAR(10)
+
+UPDATE [dbo].[Whale_transactions]
+SET Type = REPLACE(Type,'-1','Sent')
+
+UPDATE [dbo].[Whale_transactions]
+SET Type = REPLACE(Type,'1','Received')
 
   
 
