@@ -12,11 +12,41 @@ This data analysis project aims to provide insights into the bitcoin open and cl
 - PowerBI - Creating visualization
 - Github - Documentation
 
-  ### Data Cleaning/Preparation
+### Data Cleaning/Preparation
   In the initial data preparation phase, we performed the following tasks:
+  
     1. Data loading and inspection
-    2. Align the date (Changing data format)
-    3. 
-    4. Data cleaning and formatting
+    
+    2. Align date format
+    
+    3. Check for outliers
+    
+    4. Replace -1 with Sent and 1 with received in the whale_transactions
+    
+    5. Change type from float to string
+    
+    6. Data cleaning and formatting
+### Exploratory Data Analysis
+EDA Involved exploring the price_data and whale_transaction to answer key questions, such as:
+- What are the most active whale addresses by transaction volume?
+- What is the total volume of whale transactions over a while?
+- What are the whale transaction sizes?
+- What is the relationship between transaction size and the total volume of transactions
+- Show the cumulative volume of whale transactions over time
+- Show the relationship between whale transaction volumes and BTC price data.
+- What are the seasonal patterns in BTC prices, weekly and monthly?
+- How does BTC price change over time?
+- What are the moving price averages that smooth out price data and identify trends over different periods?
+- What is the volume of BTC traded over different periods
+- How to use time series forecasting techniques to predict future BTC prices.
+- Using RSI to identify overbought or oversold conditions
+
+### Data Analysis
+```sql
+
+
+  
+
+
  
        
