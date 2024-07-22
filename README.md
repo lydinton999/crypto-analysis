@@ -1,23 +1,23 @@
 # BITCOIN ANALYSIS
 
 ## Table Of Contents
-[Project Overview](project_overview)
+[Project Overview](#project-overview)
 
-[Data Sources](data_sources)
+[Data Sources](#data-sources)
 
-[Tools](tools)
+[Tools](#tools)
 
-[Data Cleaning/Preparation](data_cleaning/preparation)
+[Data Cleaning/Preparation](#data-cleaning)
 
-[Exploratory Data Analysis](exploratory_data_analysis)
+[Exploratory Data Analysis](#exploratory-data-analysis)
 
-[Data Analysis](data_analysis)
+[Data Analysis](#data-analysis)
 
-[Results/Findings](results/findings)
+[Results/Findings](#results)
 
-[Recommendations](recommendations)
+[Recommendations](#recommendations)
 
-[Limitations](limitations)
+[Limitations](#limitations)
 
 ### Project Overview
 This data analysis project aims to provide insights into the bitcoin open and close price data and the whale transaction from 1st January 2022 to 3rd March 2024. By comparing the bear and bull run and the trend analyses, we seek to identify the  Relative strength index (RSI), key active whale addresses, and total address volume. We gain a deeper understanding of the leading cause of bitcoin rise and fall. 
@@ -31,7 +31,7 @@ This data analysis project aims to provide insights into the bitcoin open and cl
 - PowerBI - Creating visualization
 - Github - Documentation
 
-### Data Cleaning/Preparation
+### Data Cleaning
   In the initial data preparation phase, we performed the following tasks:
   
     1. Data loading and inspection
@@ -244,7 +244,7 @@ SELECT
     100 - (100 / (1 + avg_gain / avg_loss)) AS rsi
 FROM avg_gains_losses;
 ```
-### Results/Findings
+### Results
 The analysis results are summarized as follows:
 
 
