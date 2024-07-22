@@ -248,6 +248,7 @@ FROM avg_gains_losses;
 The analysis results are summarized as follows:
 
 
+
 ### Recommendations
 
 
