@@ -274,10 +274,10 @@ The analysis results are summarized as follows:
 - I guess there are not alot of people that can buy 100k worth of Bitcoin but the big whalers can.
 - The RSI showed that if its over 70, it was over bought, which indicates that the particular asset has been experiencing strong upward momentum, likewise if its below 30, it was over sold whcih indicates that the asset experienced a strong downward momenetum but in this case they maintained a balance as shown in the dasboard
 - I think Bitcoin price changes more on certain days of the week and over time, in 30 days it evens out and covers up for the days it messed up if you hold it for longer.
-- In the long term, Bitcoin is an uptrend if you are willing to be patient and ignore how volatile the market can get.
+- In the long term, Bitcoin is in an uptrend if you are willing to be patient and ignore how volatile the market can get.
 
 ### Recommendations
-In conclusion, Bitcoin's journey has been a rollercoaster ride full of highs and lows. 2024 has been a good high ride especially because we are all looking forward to the quaterly halving that happens every 4 years where half of the bitcoin gets burned out of the market, This halving is a significant event in the Bitcoin ecosystem as it reduces the rate at which new bitcoins are created, which historically has had a bullish impact on the price of Bitcoin​, i will advise you keep holding your Btc so you dont miss out on the massive bull that will take place when the halving happens.
+In conclusion, Bitcoin's journey has been a rollercoaster ride full of highs and lows. 2024 has been a good high ride especially because we are all looking forward to the quaterly halving that happens every 4 years where half of the bitcoin gets burned out of the market, This halving is a significant event in the Bitcoin ecosystem as it reduces the rate at which new bitcoins are created, which historically has had a bullish impact on the price of Bitcoin​, i will advise you keep holding your Btc so you dont miss out on the massive bull run that will take place when the halving happens.
 
 ### Limitations
 
