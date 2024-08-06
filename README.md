@@ -24,7 +24,7 @@
 [Reference](#reference)
 
 ### Project Overview
-This data analysis project aims to provide insights into the bitcoin open and close price data and the whale transaction from 1st January 2022 to 3rd March 2024. By comparing the bear and bull run and the trend analyses, we seek to identify the  Relative strength index (RSI), key active whale addresses, and total address volume. We gain a deeper understanding of the leading cause of bitcoin rise and fall. 
+This data analysis project aims to provide insights into the bitcoin open and close price data and the whale transaction from 1st January 2022 to 3rd March 2024. By comparing the bear and bull run and the trend analyses, we seek to identify the  Relative strength index (RSI), key active whale addresses, and total address volume. We gain a deeper understanding of the leading cause of bitcoin rise and fall and predicting the effect of the halving.
 
 ![bitcoin bear and bull run data](./bitcoin_bear_and_bull_run_data.PNG) 
 ![btc avarage price per date](./btc_avarage_price_per_date.PNG) 
